@@ -1,0 +1,11 @@
+<% if @vehicles.blank? %>
+	<p> There are no vehicles </p>
+<% else %>
+  <p> Vehicles list </p>
+	<ul id="vehicles">
+		<% @vehicles.each do |vehicle| %>
+			<li><%= link_to vehicle.reg_no, vehicle_path(vehicle) %> <%= link_to "Edit", edit_vehicle_path(vehicle) %></li>
+		<% end %>
+	</ul>
+<% end %>
+<p><%= link_to "Add Vehicle", new_vehicle_path %></p>

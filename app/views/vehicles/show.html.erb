@@ -1,0 +1,9 @@
+<p> Listed below are the vehicles ></p>
+	<ul id="vehicle">
+			<li><%= @vehicle.reg_no %></li>
+			<li><%= @vehicle.country %></li>
+			<li><%= @vehicle.seating %></li>
+			<li><%= @vehicle.owner %></li>
+	</ul>
+<p><%= link_to "Add new Vehicle", new_vehicle_path %></p>
+<p><%= link_to "Vehicle Listing", vehicles_path %></p>
