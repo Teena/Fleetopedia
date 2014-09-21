@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20140917063134) do
     t.string   "name",        limit: 50
     t.datetime "dob"
     t.text     "address"
-    t.integer  "contact_no"
+    t.integer  "contact_no",  limit: 8
     t.string   "nationality"
     t.datetime "created_at"
   end

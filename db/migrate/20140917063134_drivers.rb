@@ -5,7 +5,7 @@ class Drivers < ActiveRecord::Migration
 			t.column :name, :string, :limit => 50
 			t.column :dob, :datetime
 			t.column :address, :text
-			t.column :contact_no, :integer
+			t.column :contact_no, :integer, :limit => 8
 			t.column :nationality, :string
 			t.column :created_at, :timestamp
     end

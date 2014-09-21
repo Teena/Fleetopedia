@@ -1,0 +1,14 @@
+<% if @drivers.blank? %>
+  <p> No drivers added yet <p>
+<% else %>
+  <p> Drivers List <p>
+    <ul>
+      <% @drivers.each do |driver| %>
+        <li>
+          <%= link_to driver.license_no, driver_path(driver) %>
+          <%= link_to "Edit", edit_driver_path(driver) %>
+          <%= link_to "Delete", driver_path(driver), method: :delete %>
+        </li>
+      <% end %>
+<% end %>
+<p><%= link_to "Add Driver", new_driver_path %></p>

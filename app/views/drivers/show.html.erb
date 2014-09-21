@@ -1,0 +1,11 @@
+<p> Listed below is the driver detail </p>
+  <ul>
+    <li><%= @driver.license_no %></li>
+    <li><%= @driver.name %></li>
+    <li><%= @driver.dob %></li>
+    <li><%= @driver.address %></li>
+    <li><%= @driver.contact_no %></li>
+    <li><%= @driver.nationality %></li>
+  </ul>
+<p><%= link_to "Add Driver", new_driver_path %></p>
+<p><%= link_to "Driver Listing", drivers_path %></p>

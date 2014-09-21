@@ -2,7 +2,7 @@
 	<p> There are no vehicles </p>
 <% else %>
   <p> Vehicles list </p>
-	<ul id="vehicles">
+	<ul>
 		<% @vehicles.each do |vehicle| %>
 			<li>
         <%= link_to vehicle.reg_no, vehicle_path(vehicle) %> 
