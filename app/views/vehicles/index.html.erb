@@ -4,7 +4,11 @@
   <p> Vehicles list </p>
 	<ul id="vehicles">
 		<% @vehicles.each do |vehicle| %>
-			<li><%= link_to vehicle.reg_no, vehicle_path(vehicle) %> <%= link_to "Edit", edit_vehicle_path(vehicle) %></li>
+			<li>
+        <%= link_to vehicle.reg_no, vehicle_path(vehicle) %> 
+        <%= link_to "Edit", edit_vehicle_path(vehicle) %>
+        <%= link_to "Delete", vehicle_path(vehicle), method: :delete %>
+      </li>
 		<% end %>
 	</ul>
 <% end %>

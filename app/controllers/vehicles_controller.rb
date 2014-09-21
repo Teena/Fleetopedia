@@ -14,13 +14,11 @@ class VehiclesController < ApplicationController
 
 	def create
 		@vehicle = Vehicle.new(vehicle_params)
-		respond_to do |format|
-	  	if @vehicle.save
-	    	format.html { redirect_to vehicles_path, notice: 'Test was successfully created.' }
-	  	else
-	    	format.html { render 'new' }
-	  	end
-	  end
+  	if @vehicle.save
+      redirect_to vehicles_path, notice: 'Test was successfully created.'
+  	else
+      render 'new'
+  	end
 	end
 
 	def edit
@@ -30,15 +28,15 @@ class VehiclesController < ApplicationController
 	def update
 		@vehicle =Vehicle.find(params[:id])
 		if @vehicle.update_attributes(vehicle_params)
-			redirect_to :action => 'show', :id => @vehicle
+			redirect_to vehicle_path(@vehicle)
 		else
-			render :action => 'edit'
+			render 'edit'
 		end
 	end
 
-	def delete
+	def destroy
 		Vehicle.find(params[:id]).destroy
-		redirect_to :action =>'index'
+		redirect_to vehicles_path
 	end
 
 	private
