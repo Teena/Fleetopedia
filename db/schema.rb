@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917063134) do
+ActiveRecord::Schema.define(version: 20140927200226) do
 
   create_table "drivers", force: true do |t|
     t.string   "license_no",  limit: 32, null: false
@@ -21,6 +21,25 @@ ActiveRecord::Schema.define(version: 20140917063134) do
     t.integer  "contact_no",  limit: 8
     t.string   "nationality"
     t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "travel_slots", force: true do |t|
+    t.time     "start_time"
+    t.time     "stop_time"
+    t.string   "time_slot"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vehicle_drivers", force: true do |t|
+    t.integer  "driver_id"
+    t.integer  "vehicle_id"
+    t.string   "time_slot"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "travel_slot_id"
+    t.string   "status"
   end
 
   create_table "vehicles", force: true do |t|
@@ -29,6 +48,7 @@ ActiveRecord::Schema.define(version: 20140917063134) do
     t.integer  "seating"
     t.string   "owner"
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

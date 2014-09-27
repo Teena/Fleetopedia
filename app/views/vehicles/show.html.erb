@@ -4,6 +4,10 @@
 			<li><%= @vehicle.country %></li>
 			<li><%= @vehicle.seating %></li>
 			<li><%= @vehicle.owner %></li>
+      <% if @current_driver %>
+        <li>Current Driver: <%= @current_driver.name %></li>
+      <% end %>
 	</ul>
 <p><%= link_to "Add new Vehicle", new_vehicle_path %></p>
 <p><%= link_to "Vehicle Listing", vehicles_path %></p>
+

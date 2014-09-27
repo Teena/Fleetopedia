@@ -10,6 +10,7 @@ class VehiclesController < ApplicationController
 
 	def show
 	 	@vehicle = Vehicle.find(params[:id])
+	 	@current_driver = @vehicle.drivers.order("vehicle_drivers.created_at").last
 	end
 
 	def create
@@ -23,10 +24,16 @@ class VehiclesController < ApplicationController
 
 	def edit
 		@vehicle = Vehicle.find(params[:id])
+		@drivers = Driver.joins("left join vehicle_drivers on vehicle_drivers.driver_id = drivers.id and vehicle_drivers.created_at > '#{DateTime.now.beginning_of_day.utc}'")
+							.where ("vehicle_drivers.driver_id IS NULL")
+		@current_driver = @vehicle.drivers.order("vehicle_drivers.created_at").last
 	end
 
 	def update
 		@vehicle =Vehicle.find(params[:id])
+		if params[:driver_id].present?
+			@vehicle.vehicle_drivers.new(driver: Driver.find(params[:driver_id]))
+		end
 		if @vehicle.update_attributes(vehicle_params)
 			redirect_to vehicle_path(@vehicle)
 		else

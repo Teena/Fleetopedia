@@ -1,1 +1,19 @@
 <h1> Crabs sale </h1>
+<% if @vehicle_driver_assignments.blank? %>
+  <h1> No drivers assigned to any vehicle </h1>
+<% else %>
+  <table>
+    <tr>
+      <th> Registeration No: </th>
+      <th> Driver Name </th>
+      <th> Driver Contact </th>
+    </tr>
+    <% @vehicle_driver_assignments.each do |vehicle, vehicle_assignments| %>
+    <tr>
+      <td><%= vehicle_assignments.last.vehicle.reg_no %></td>
+      <td><%= vehicle_assignments.last.driver.name %></td>
+      <td><%= vehicle_assignments.last.driver.contact_no %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>

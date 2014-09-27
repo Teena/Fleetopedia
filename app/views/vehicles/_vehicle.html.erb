@@ -8,6 +8,12 @@
     <%= f.text_field :seating %></p>
   <p><label for="vehicle_owner">Owner</label>
     <%= f.text_field :owner %></p>
+   <% if @current_driver %>
+    <%= select_tag "driver_id", options_from_collection_for_select(@drivers, "id", "name", @current_driver.id) %>
+    <%= f.submit 'Unassign Driver' %>
+   <% else %>
+     <%= select_tag "driver_id", options_from_collection_for_select(@drivers, "id", "name"), prompt: "Select Driver" %>
+   <% end %>
   <%= f.submit %>
 <% end %>
 <p><%= link_to "Vehicles listing", vehicles_path%></p>

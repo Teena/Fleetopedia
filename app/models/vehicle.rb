@@ -1,3 +1,4 @@
 class Vehicle < ActiveRecord::Base
-	#attr_accessible :reg_no, :seating, :country, :owner
+  has_many :vehicle_drivers
+  has_many :drivers, through: :vehicle_drivers
 end
