@@ -1,4 +1,4 @@
-class CreateDrivers < ActiveRecord::Migration
+rails g migrationsclass CreateDrivers < ActiveRecord::Migration
   def change
     create_table :drivers do |t|
       t.column :license_no, :string, :limit => 32, :null => false

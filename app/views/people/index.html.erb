@@ -1,0 +1,15 @@
+<h1>Associate List</h1>
+<% if @people.blank? %>
+  <p> No associates </p>
+<% else %>
+  <ol>
+    <% @people.each do |person| %>
+    <li>
+      <%= link_to person.mnemonic, person_path(person) %>
+      <%= link_to "Edit", edit_person_path(person) %>
+      <%= link_to "Delete", person_path(person), method: :delete %>
+    </li>
+    <% end %>
+  </ol>
+<% end %> 
+<%= link_to "Add Associate", new_person_path %>  

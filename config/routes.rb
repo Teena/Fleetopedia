@@ -57,6 +57,7 @@ Fleetopedia::Application.routes.draw do
   root :to => 'home#index'
   resources :vehicles
   resources :drivers
+  resources :people
 
   #get "vehicles/:all" => "vehicle#list"
   #get "/vehicles/:id" => "vehicles#show"

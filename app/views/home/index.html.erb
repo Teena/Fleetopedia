@@ -1,4 +1,4 @@
-<h1> Crabs sale </h1>
+<h1> Driver Assignments </h1>
 <% if @vehicle_driver_assignments.blank? %>
   <h1> No drivers assigned to any vehicle </h1>
 <% else %>
@@ -10,10 +10,34 @@
     </tr>
     <% @vehicle_driver_assignments.each do |vehicle, vehicle_assignments| %>
     <tr>
-      <td><%= vehicle_assignments.last.vehicle.reg_no %></td>
-      <td><%= vehicle_assignments.last.driver.name %></td>
+      <td><%= link_to vehicle_assignments.last.vehicle.reg_no, vehicle_path(vehicle_assignments.last.vehicle)%></td>
+      <td><%= link_to vehicle_assignments.last.driver.name, driver_path(vehicle_assignments.last.driver)%></td>
       <td><%= vehicle_assignments.last.driver.contact_no %></td>
     </tr>
     <% end %>
   </table>
 <% end %>
+<h1> Vehicle Assignments to Associates</h1>
+<% if @vehicle_driver_assignments.blank? %>
+  <h1> No vehicles assigned today </h1>
+<% else %>
+  <table>
+    <tr>
+      <th> Associate Name </th>
+      <th> Associate Destination </th>
+      <th> Associate Contact No: </th>
+      <th> Registration No: </th>
+      <th> Driver Assigned </th>
+      <th> Driver Contact No: </th>
+    </tr>
+    <% @vehicle_driver_assignments.each do |vehicle, vehicle_assignments| %>
+    <tr>
+      <td><%= link_to vehicle_assignments.last.vehicle.reg_no, vehicle_path(vehicle_assignments.last.vehicle)%></td>
+      <td><%= link_to vehicle_assignments.last.driver.name, driver_path(vehicle_assignments.last.driver)%></td>
+      <td><%= vehicle_assignments.last.driver.contact_no %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+<p><%= link_to "Vehicles Listing", vehicles_path %></p>
+<p><%= link_to "Associate Listing", people_path %></p>

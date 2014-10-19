@@ -10,7 +10,11 @@ class VehiclesController < ApplicationController
 
 	def show
 	 	@vehicle = Vehicle.find(params[:id])
-	 	@current_driver = @vehicle.drivers.order("vehicle_drivers.created_at").last
+	 	@current_driver = @vehicle.drivers.where("vehicle_drivers.created_at>=?", DateTime.now.beginning_of_day.utc).order("vehicle_drivers.created_at").last
+	 	# if params[:unassign_driver]
+	 	# 	VehicleDriver.where("vehicle_id=? and driver_id=?", @vehicle.id, @current_driver.id).order("created_at").update(:status => "Unassigned")
+	 	# 	@current_driver = @vehicle.drivers.order("vehicle_drivers.created_at").last
+	 	# end
 	end
 
 	def create
@@ -25,20 +29,25 @@ class VehiclesController < ApplicationController
 	def edit
 		@vehicle = Vehicle.find(params[:id])
 		@drivers = Driver.joins("left join vehicle_drivers on vehicle_drivers.driver_id = drivers.id and vehicle_drivers.created_at > '#{DateTime.now.beginning_of_day.utc}'")
-							.where ("vehicle_drivers.driver_id IS NULL")
-		@current_driver = @vehicle.drivers.order("vehicle_drivers.created_at").last
+							.where("vehicle_drivers.driver_id is null or vehicle_drivers.vehicle_id =?", @vehicle.id)
+		@current_driver = @vehicle.drivers.where("vehicle_drivers.created_at>=? and vehicle_drivers.status = ?", DateTime.now.beginning_of_day.utc,"assigned").order("vehicle_drivers.created_at").last
 	end
 
 	def update
 		@vehicle =Vehicle.find(params[:id])
-		if params[:driver_id].present?
-			@vehicle.vehicle_drivers.new(driver: Driver.find(params[:driver_id]))
+		if params[:unassign_driver]
+	 		VehicleDriver.where("vehicle_id=?", @vehicle.id).update_all(:status => "unassigned")
+	 		redirect_to root_path
+	 	elsif params[:driver_id].present?
+			@vehicle.vehicle_drivers.new(driver: Driver.find(params[:driver_id]), :status => "assigned")
+			if @vehicle.update_attributes(vehicle_params)
+				redirect_to vehicle_path(@vehicle)
+			else
+				render 'edit'
+			end
 		end
-		if @vehicle.update_attributes(vehicle_params)
-			redirect_to vehicle_path(@vehicle)
-		else
-			render 'edit'
-		end
+
+		
 	end
 
 	def destroy

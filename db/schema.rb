@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140927200226) do
+ActiveRecord::Schema.define(version: 20141014061345) do
 
   create_table "drivers", force: true do |t|
     t.string   "license_no",  limit: 32, null: false
@@ -20,6 +20,36 @@ ActiveRecord::Schema.define(version: 20140927200226) do
     t.text     "address"
     t.integer  "contact_no",  limit: 8
     t.string   "nationality"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "people", force: true do |t|
+    t.string   "mnemonic"
+    t.string   "name"
+    t.string   "email"
+    t.string   "oranization"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "people", ["mnemonic", "email"], name: "index_people_on_mnemonic_and_email", using: :btree
+
+  create_table "person_addresses", force: true do |t|
+    t.integer  "person_id"
+    t.text     "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.integer  "pincode",    limit: 8
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "person_vehicles", force: true do |t|
+    t.integer  "person_id"
+    t.integer  "vehicle_drivers_id"
+    t.integer  "travel_slots_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

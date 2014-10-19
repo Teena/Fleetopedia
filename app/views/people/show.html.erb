@@ -1,0 +1,21 @@
+<h1>Associate Details</h1>
+<% if @person.blank? %>
+  <p> Not found </p>
+<% else %>
+  <p>Name: <%= @person.name %></p>
+  <p>Person ID: <%= @person.mnemonic %></p>
+  <p>Email: <%= @person.email %></p>
+  <% for person_addres in  @person.person_addresses %>
+    <li> Address:<%= person_addres.address %> </li>
+    <li> City:<%= person_addres.city %></li>
+    <li> State:<%= person_addres.state %></li>
+    <li> Country:<%= person_addres.country %></li>
+    <li> PinCode:<%= person_addres.pincode %></li>
+  <% end %>
+<% end %>
+
+<%= link_to "List Associates", people_path %>
+<%= link_to "Edit", edit_person_path %>
+<%= link_to "New", new_person_path %>
+
+ 
